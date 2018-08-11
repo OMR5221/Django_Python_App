@@ -13,9 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+# Import the functions and modules that manage URLS for the project and admin site:
 from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+	# defines all the urls that can be requested from the admin site:
     path('admin/', admin.site.urls),
+	path('', include('learn_logs.urls')), # indicates where to get urls for learn_logs site
 ]

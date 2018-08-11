@@ -6,8 +6,8 @@ HOMEPAGE: Describes the site and invites users to either register or log in.
 LOGGED IN: User can create new topics, add new entries, and read and edit existing entries. 
 
 1. Developed using a virtual environment: https://packaging.python.org/guides/installing-using-pip-and-virtualenv/
-# Create virtual env: py -m virtualenv env
-# Activate virtual env: .\env\Scripts\activate
+# Create virtual env: py -m virtualenv ll_env
+# Activate virtual env: .\ll_env\Scripts\activate
 # Deactivate virtual env: deactivate
 
 2. Create a django project using: django-admin startproject <app_name> .
@@ -23,7 +23,7 @@ LOGGED IN: User can create new topics, add new entries, and read and edit existi
 
 
 4. Viewing the project
-# Use comamnd to check status of app: python manage.py runserver
+# Use command to check status of app: python manage.py runserver
 # can change port using python manage.py runserver 800#
 """
 Performing system checks...
@@ -79,3 +79,58 @@ Running migrations:
 # 1. Modify models.py to add / edit models
 # 2. call makemigrations on app to create change file
 # 3. migrate to have Django apply the updates to db
+
+9. Create User accounts
+# SuperUser (Admin): python manage.py createsuperuser
+# username: ll_admin
+# pswd: 
+
+# Default models in Django for admin: User and Group
+# admin.py: register models here for the admin user 
+
+"""
+# Imports the model we wnat to register 
+
+from learn_logs.models import Topic
+
+# Tells Django to manage our model through the admin site:
+
+admin.site.register(Topic)
+"""
+
+10. Added Entry model
+# Migrate to incorporate changes: python manage.py makemigrations leanr_logs
+# Commit updates to db: python manage.py migrate
+
+11. Need to register the Entry model with the admin
+# admin.site.register(Entry)
+# Add entries via the admin GUI in the frontend
+
+12. Open a python shell to explore data
+# python manage.py shell -- Open a python shell
+# from learn_logs.models import Topic -- load Topic table
+# Topic.objects.all() -- Get all instances of Topic objects
+
+"""
+Output:
+
+<QuerySet [<Topic: Python>, <Topic: Django>, <Topic: Java>]>
+"""
+
+# We can loop over this list of Topic objects:
+topics = Topic.objects.all()
+for topic in topics:
+	print(topic.id, topic)
+
+# Can also get a individual topic item by index:
+t = Topic.objects.get(id=1)
+t.name
+t.date_added
+
+# We can get the entries associted to this topic via a foreign key:
+t.entry_set.all()
+
+# Windows CTRL-Z & ENTER to exit shell
+
+13. Remap URLs
+# Change homepage url in urls.py
