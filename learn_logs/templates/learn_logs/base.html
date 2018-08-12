@@ -1,0 +1,9 @@
+<!-- Base html file to be used for repeated elemets per page --!>
+
+<!-- Create a anchor that returns any inheriting page to the homepage via a link --!>
+<p>
+  <a href="{% url 'learn_logs:index' %}">Learn Logs</a>
+</p>
+
+<!-- Create an empty block child pages can define --!>
+{% block content %}{% endblock content %}
